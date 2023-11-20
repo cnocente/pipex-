@@ -6,7 +6,7 @@
 /*   By: canocent <canocent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:20:45 by canocent          #+#    #+#             */
-/*   Updated: 2023/11/10 15:58:46 by canocent         ###   ########.fr       */
+/*   Updated: 2023/11/20 14:28:33 by canocent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,3 @@ void	ft_freetab(char **tab)
 	}
 	free(tab);
 }
-
-
-/*char *tab[];
-
-tab[0] = "\0"
-tab[1] = NULL*/

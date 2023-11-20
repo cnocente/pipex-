@@ -6,7 +6,7 @@
 /*   By: canocent <canocent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:12:28 by canocent          #+#    #+#             */
-/*   Updated: 2023/11/09 15:50:28 by canocent         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:12:49 by canocent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_process1(char **av, t_cmds cmds, int *pipefd)
 		return (perror(ERROR_FD1), exit_child(cmds), 1);
 	}
 	else
-		dup2(fd1, 0);// sur tmp pour bonus
+		dup2(fd1, 0);
 	dup2(pipefd[1], 1);
 	close(fd1);
 	close(pipefd[1]);
@@ -89,24 +89,11 @@ void	ft_child(char **av, t_cmds *cmds, int *pipefd)
 		return (perror("fork1"), (void)0);
 	if (cmds->pid1 == 0)
 		ft_process1(av, *cmds, pipefd);
-
-
-// POUR LES BONUS
-		
-	/*int fd_tmp;
-	fd_tmp = pipefd[0];
-	while (tu boucle sur les commandes du milieu )
-	{
-		cmds->pid_middle = fork
-		pipe(pipefd);
-		ft_process_middle(fd_tmp, pipefd);
-	}*/
 	cmds->pid2 = fork();
 	if (cmds->pid2 == -1)
 		return (perror("fork2"), (void)0);
 	if (cmds->pid2 == 0)
 		ft_process2(av, *cmds, pipefd);
-		// ft_process2(av, *cmds, tmp_fd);
 }
 
 int	main(int ac, char **av, char **env)
@@ -124,8 +111,8 @@ int	main(int ac, char **av, char **env)
 	ft_child(av, &cmds, pipefd);
 	close(pipefd[1]);
 	close(pipefd[0]);
-	waitpid(cmds.pid2, &status, 0); //-1 et nb de cmd, status sert a rien tho dans pipex
-	waitpid(cmds.pid1, &status, 0);
+	waitpid(-1, &status, 0);
+	waitpid(-1), &status, 0);
 	ft_freetab(cmds.paths);
 	free(cmds.valid_cmd[0]);
 	free(cmds.valid_cmd[1]);

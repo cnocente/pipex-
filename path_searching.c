@@ -6,7 +6,7 @@
 /*   By: canocent <canocent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:10:38 by canocent          #+#    #+#             */
-/*   Updated: 2023/11/10 16:03:44 by canocent         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:14:00 by canocent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_testpaths(char **paths, char *cmd)
 			return (valid_cmd);
 		i++;
 	}
-	return (ft_strdup(cmd));
+	return (ft_printf("%s: command not found\n", cmd), NULL);
 }
 
 void	ft_getcmd(char **cmd, char **av, t_cmds *cmds)
@@ -51,20 +51,30 @@ void	ft_getcmd(char **cmd, char **av, t_cmds *cmds)
 	cmds->args[1] = ft_split(av[3], ' ');
 	cmd[0] = cmds->args[0][0];
 	cmd[1] = cmds->args[1][0];
-	printf("arg[0] = %s et arg[1] = %s \n", cmds->args[0][0] , cmds->args[1][0]);
-	if (!av[2][0])
+	if (!cmd[0])
 	{
-		// free_tab split
-		// faire un tableau avec \0 NULL
+		cmds->valid_cmd[0] = NULL;
+		ft_printf("command 1 not found\n");
 	}
-	if (!((cmd[0][0] == '.' && cmd[0][1] == '/') || cmd[0][0] == '/'))
+	if (!cmd[1])
+	{
+		cmds->valid_cmd[1] = NULL;
+		ft_printf("command 2 not found\n");
+	}
+	if (cmd[0] && !((cmd[0][0] == '.' && cmd[0][1] == '/') || cmd[0][0] == '/'))
 		cmds->valid_cmd[0] = ft_testpaths(cmds->paths, cmd[0]);
 	else
+	{
+		if (*cmds->args[0])
 		cmds->valid_cmd[0] = ft_strdup(*cmds->args[0]);
-	if (!((cmd[1][0] == '.' && cmd[1][1] == '/') || cmd[1][0] == '/'))
+	}
+	if (cmd[1] && !((cmd[1][0] == '.' && cmd[1][1] == '/') || cmd[1][0] == '/'))
 		cmds->valid_cmd[1] = ft_testpaths(cmds->paths, cmd[1]);
 	else
-		cmds->valid_cmd[1] = ft_strdup(*cmds->args[1]);
+	{
+		if (*cmds->args[1])
+			cmds->valid_cmd[1] = ft_strdup(*cmds->args[1]);
+	}
 }
 
 char	**ft_findpath(char **env)
