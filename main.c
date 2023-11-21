@@ -6,7 +6,7 @@
 /*   By: canocent <canocent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 12:12:28 by canocent          #+#    #+#             */
-/*   Updated: 2023/11/20 17:12:49 by canocent         ###   ########.fr       */
+/*   Updated: 2023/11/20 18:04:23 by canocent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	main(int ac, char **av, char **env)
 	close(pipefd[1]);
 	close(pipefd[0]);
 	waitpid(-1, &status, 0);
-	waitpid(-1), &status, 0);
+	waitpid(-1, &status, 0);
 	ft_freetab(cmds.paths);
 	free(cmds.valid_cmd[0]);
 	free(cmds.valid_cmd[1]);

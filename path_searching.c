@@ -6,7 +6,7 @@
 /*   By: canocent <canocent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:10:38 by canocent          #+#    #+#             */
-/*   Updated: 2023/11/20 17:14:00 by canocent         ###   ########.fr       */
+/*   Updated: 2023/11/21 16:29:03 by canocent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ char	*ft_testpaths(char **paths, char *cmd)
 	return (ft_printf("%s: command not found\n", cmd), NULL);
 }
 
+void	cmd_not_found(t_cmds *cmds, int index)
+{
+	cmds->valid_cmd[index] = NULL;
+	ft_printf("command %d not found\n", index + 1);
+}
+
 void	ft_getcmd(char **cmd, char **av, t_cmds *cmds)
 {
 	cmds->args[0] = ft_split(av[2], ' ');
@@ -52,15 +58,9 @@ void	ft_getcmd(char **cmd, char **av, t_cmds *cmds)
 	cmd[0] = cmds->args[0][0];
 	cmd[1] = cmds->args[1][0];
 	if (!cmd[0])
-	{
-		cmds->valid_cmd[0] = NULL;
-		ft_printf("command 1 not found\n");
-	}
+		cmd_not_found(cmds, 0);
 	if (!cmd[1])
-	{
-		cmds->valid_cmd[1] = NULL;
-		ft_printf("command 2 not found\n");
-	}
+		cmd_not_found(cmds, 1);
 	if (cmd[0] && !((cmd[0][0] == '.' && cmd[0][1] == '/') || cmd[0][0] == '/'))
 		cmds->valid_cmd[0] = ft_testpaths(cmds->paths, cmd[0]);
 	else
